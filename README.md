@@ -1,9 +1,11 @@
 # `cdc_statistics`: R-script to download CDC mortality data and make plots of the data including control plots for interpretability
 
+By Biafra Ahanonu, PhD <bahanonu [at] alum [dot] mit [dot] edu>
+
 This script performs the following actions:
 - Downloads CDC mortality data (https://www.cdc.gov/flu/weekly/#S2).
-- Concatenates weekly data release series and plots statistics from 2020 by week of release to show that users should not interpret dips or other oddities in most recent data points.
-- Also plots mortality for all deaths, pneumonia-related, influenza-related, and pneumonia/influenza-related as a percent of all deaths.
+- Concatenates weekly data release series and plots statistics from 2020 by week of release to show that users should not interpret dips or other oddities in most recent data points as being meaningful but rather likely due to collection or compilation delays.
+- Also plot yearly mortality for all deaths, pneumonia-related, influenza-related, and pneumonia/influenza-related as a percent of all deaths.
 
 To run, direct `R` to the repository root directory after downloading and type the below.
 
@@ -21,7 +23,8 @@ Notes:
 - The script will skip existing files during downloading.
 
 ## License
+MIT License
 
-Biafra Ahanonu, PhD <bahanonu [at] alum [dot] mit [dot] edu>
+Copyright (c) 2020 Biafra Ahanonu
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU. Attribution is appreciated, but not required, if parts of the software are used elsewhere.
+See `LICENSE` file for details.
