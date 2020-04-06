@@ -96,22 +96,24 @@ tableDataAll$Year = as.character(tableDataAll$Year)
 	tableDataAllMelt$variable = gsub(' to ',' to\n',tableDataAllMelt$variable)
 	# Remove rows not informative to most users
 	tableDataAllMelt = tableDataAllMelt[!(tableDataAllMelt$variable %in% columnsToRemove),]
+	# Adjust the default week by what is actually in each table
+	currentWeekAdj = max(tableDataAllMelt$Week)
 
 # =====================
 # Plot CDC data as a function of week data reported
 newplot = ggplot(tableDataAllMelt,aes(Week,value,color=CollectionNo,group=CollectionNo))+
-	geom_vline(xintercept=seq(4,currentWeek,4),color='black')+
+	geom_vline(xintercept=seq(4,currentWeekAdj,4),color='gray')+
 	geom_line(size=2)+
 	geom_point(size=2)+
 	xlab('Week (1 = start of year)')+
 	ylab('')+
 	labs(color='Week data reported')+
-	scale_x_continuous(breaks=seq(1,currentWeek,1))+
+	scale_x_continuous(breaks=seq(1,currentWeekAdj,1))+
 	# ggCustomColor(colourCount=14)+
 	# ggCustomColorContinuous(lowColor="gray",midColor="blue",midpointH=currentWeek/2)+
 	scale_colour_gradient2(low="gray", mid="blue", high="red",midpoint=currentWeek/2,limits = c(1,currentWeek),breaks=seq(1,currentWeek,1))+
 	facet_wrap(~variable,scales="free_y")+
-	ggtitle(sprintf('CDC total mortality by week data reported in %s | Black lines indicate every 4 weeks',currentYear))+
+	ggtitle(sprintf('CDC total mortality by week data reported in %s | Gray lines indicate every 4 weeks',currentYear))+
 	ggThemeBlank(axisTextSize=axisTextSize,defaultTextSize=defaultTextSize)
 
 dev.new(width=20,height=5)
@@ -128,14 +130,16 @@ tableData = tableDataLatest
 	tableDataMelt$variable = gsub(' to ',' to\n',tableDataMelt$variable)
 	# Remove rows not informative to most users
 	tableDataMelt = tableDataMelt[!(tableDataMelt$variable %in% columnsToRemove),]
+	# Adjust the default week by what is actually in each table
+	currentWeekAdj = max(tableDataMelt$Week)
 
 # Plot all years in CDC dataset by various statistics
 newplot = ggplot(tableDataMelt,aes(Week,value,color=Year,group=Year))+
-	geom_vline(xintercept=seq(4,currentWeek,4),color='black')+
+	geom_vline(xintercept=seq(4,currentWeekAdj,4),color='gray')+
 	geom_line(size=2)+
 	xlab('Week (1 = start of year)')+
 	ylab('')+
-	scale_x_continuous(breaks=seq(1,52,6))+
+	scale_x_continuous(breaks=seq(1,currentWeekAdj,6))+
 	facet_wrap(~variable,scales="free_y")+
 	ggCustomColor(colourCount=length(unique(tableDataLatest$Year))+1)+
 	ggThemeBlank(axisTextSize=axisTextSize,defaultTextSize=defaultTextSize)
